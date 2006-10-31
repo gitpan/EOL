@@ -1,5 +1,5 @@
 # Todd Wylie [Sun Oct 23 11:18:45 CDT 2005]
-# $Id: EOL.t 1 2005-12-06 06:05:37Z twylie $
+# $Id: EOL.t 238 2006-10-31 19:08:15Z twylie $
 
 use strict;
 use warnings;
@@ -135,10 +135,10 @@ ok(-f "/tmp/dracula.txt.bak", "Backup file check.") or exit;
 ok(my $aref = EOL::eol_return_array(
                                     in  => $DOS,
                                     eol => "LF",
-                                    ), "DOS to Unix: eol_return_array.") or exit;
+                                    ), "Dos to Unix: eol_return_array.") or exit;
 is(ref($aref), "ARRAY", "Array ref tested.") or exit;
 my $entries = @{$aref};
-is($entries, "16557", "Testing number of lines in memory.") or exit;
+is($entries, "33114", "Testing number of array entries in memory.") or exit;
 $crlf_i = 0;
 $cr_i   = 0;
 $lf_i   = 0;

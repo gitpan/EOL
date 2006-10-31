@@ -1,4 +1,4 @@
-EOL version 0.0.1
+EOL version 0.0.2
 
 This module aids in the conversion of text file newline characters within the context of other perl code. There are several choices a user can specifiy; see POD for details on usage. A command line executable which utilizes this module is also included.
 
@@ -34,7 +34,7 @@ None.
 
 COPYRIGHT AND LICENCE
 
-Copyright (C) 2005, Todd Wylie
+Copyright (C) 2005-2006, Todd Wylie
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

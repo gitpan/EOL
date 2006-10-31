@@ -3,7 +3,7 @@ package EOL;
 # | PACKAGE | EOL
 # | AUTHOR  | Todd Wylie
 # | EMAIL   | perldev@monkeybytes.org
-# | ID      | $Id: EOL.pm 1 2005-12-06 06:05:37Z twylie $
+# | ID      | $Id: EOL.pm 238 2006-10-31 19:08:15Z twylie $
 
 # ---------------------------------------------------------------------------
 # PURPOSE:
@@ -12,7 +12,7 @@ package EOL;
 # specifiy; see POD for details on usage.
 # ---------------------------------------------------------------------------
 
-use version; $VERSION = qv('0.0.1');
+use version; $VERSION = qv('0.0.2');
 use warnings;
 use strict;
 use Carp;
@@ -20,7 +20,7 @@ use Carp;
 # END OF LINE DECLARATIONS
 my $CR   = "\015";      # Apple II family, Mac OS thru version 9
 my $CRLF = "\015\012";  # CP/M, MP/M, DOS, Microsoft Windows
-my $LF   = "\012";      # Unix, Linux, Xenix, Mac OS X, BeOS, Amiga 
+my $LF   = "\012";      # Unix, Linux, Xenix, Mac OS X, BeOS, Amiga
 my $FF   = "\014";      # printer form feed
 
 # --------------------------------------------------------------------------
@@ -34,8 +34,8 @@ my $FF   = "\014";      # printer form feed
 #            : eol => '' # [CR; CRLF; LF]
 # THROWS     : Croaks if required arguments missing/null or unknown.
 # COMMENTS   : By default, all newlines will be converted to standard
-#            : Unix-style line feeds (LF or octal \012). A user may change 
-#            : the end-of-file tag manually by supplying the "eol" argument. 
+#            : Unix-style line feeds (LF or octal \012). A user may change
+#            : the end-of-file tag manually by supplying the "eol" argument.
 #            : Acceptable eol tags are: CR; CRLF; LF.
 # SEE ALSO   : n/a
 # --------------------------------------------------------------------------
@@ -49,7 +49,7 @@ sub eol_new_file {
             croak "EOL reports: not legal arg \"$arg\".";
         }
     }
-    
+
     # Check for text file input:
     if (!-T $args{in}) {
         croak "EOL reports: $args{in} is not a text file.";
@@ -60,9 +60,9 @@ sub eol_new_file {
     if (-f $args{out}) { unlink($args{out}) }
     open(OUT, ">$args{out}") or croak "EOL reports: cannot open $args{in}.";
     if ($args{eol}) {
-        ($args{eol} eq "CR")     ? ($EOL = $CR  ) 
-        : ($args{eol} eq "CRLF") ? ($EOL = $CRLF) 
-        : ($args{eol} eq "LF"  ) ? ($EOL = $LF  ) 
+        ($args{eol} eq "CR")     ? ($EOL = $CR  )
+        : ($args{eol} eq "CRLF") ? ($EOL = $CRLF)
+        : ($args{eol} eq "LF"  ) ? ($EOL = $LF  )
         : croak "EOL reports: not legal EOL tag! Use only: CR; CRLF; LF.";
     }
     else {
@@ -74,7 +74,7 @@ sub eol_new_file {
     }
     close(IN);
     close(OUT);
-    
+
     return(1);
 }
 
@@ -89,11 +89,11 @@ sub eol_new_file {
 #            : backup => '' # scalar
 # THROWS     : Croaks if required arguments missing/null or unknown.
 # COMMENTS   : By default, all newlines will be converted to standard
-#            : Unix-style line feeds (LF or octal \012). A user may change 
-#            : the end-of-file tag manually by supplying the "eol" argument. 
-#            : Acceptable eol tags are: CR; CRLF; LF. As already mentioned, 
-#            : this routine will clobber the in-file. Sending the "backup" 
-#            : argument with a file suffix will produce a one-time backup of 
+#            : Unix-style line feeds (LF or octal \012). A user may change
+#            : the end-of-file tag manually by supplying the "eol" argument.
+#            : Acceptable eol tags are: CR; CRLF; LF. As already mentioned,
+#            : this routine will clobber the in-file. Sending the "backup"
+#            : argument with a file suffix will produce a one-time backup of
 #            : the original file. !!! USE AT OWN RISK !!!
 # SEE ALSO   : n/a
 # --------------------------------------------------------------------------
@@ -107,7 +107,7 @@ sub eol_same_file {
             croak "EOL reports: not legal arg \"$arg\".";
         }
     }
-    
+
     # Check for text file input:
     if (!-T $args{in}) {
         croak "EOL reports: $args{in} is not a text file.";
@@ -115,9 +115,9 @@ sub eol_same_file {
 
     # Conversion steps:
     if ($args{eol}) {
-        ($args{eol} eq "CR")     ? ($EOL = $CR  ) 
-        : ($args{eol} eq "CRLF") ? ($EOL = $CRLF) 
-        : ($args{eol} eq "LF"  ) ? ($EOL = $LF  ) 
+        ($args{eol} eq "CR")     ? ($EOL = $CR  )
+        : ($args{eol} eq "CRLF") ? ($EOL = $CRLF)
+        : ($args{eol} eq "LF"  ) ? ($EOL = $LF  )
         : croak "EOL reports: Not legal EOL tag! Use only: CR; CRLF; LF.";
     }
     else {
@@ -128,7 +128,7 @@ sub eol_same_file {
         s/$CRLF$|$CR|$FF$|$LF$/$EOL/g;
         print $_;
     }
-    
+
     return(1);
 }
 
@@ -142,10 +142,10 @@ sub eol_same_file {
 #            : eol    => '' # [CR; CRLF; LF]
 # THROWS     : Croaks if required arguments missing/null or unknown.
 # COMMENTS   : By default, all newlines will be converted to standard
-#            : Unix-style line feeds (LF or octal \012). A user may change 
-#            : the end-of-file tag manually by supplying the "eol" argument. 
-#            : Acceptable eol tags are: CR; CRLF; LF. An array reference to 
-#            : the converted file lines will be returned. Obviously, for 
+#            : Unix-style line feeds (LF or octal \012). A user may change
+#            : the end-of-file tag manually by supplying the "eol" argument.
+#            : Acceptable eol tags are: CR; CRLF; LF. An array reference to
+#            : the converted file lines will be returned. Obviously, for
 #            : larger files, this may be a considerable drain on memory.
 # SEE ALSO   : n/a
 # --------------------------------------------------------------------------
@@ -159,7 +159,7 @@ sub eol_return_array {
             croak "EOL reports: not legal arg \"$arg\".";
         }
     }
-    
+
     # Check for text file input:
     if (!-T $args{in}) {
         croak "EOL reports: $args{in} is not a text file.";
@@ -169,17 +169,18 @@ sub eol_return_array {
     my @lines;
     open(IN, "$args{in}") or croak "EOL reports: cannot open $args{in}";
     if ($args{eol}) {
-        ($args{eol} eq "CR")     ? ($EOL = $CR  ) 
-        : ($args{eol} eq "CRLF") ? ($EOL = $CRLF) 
-        : ($args{eol} eq "LF"  ) ? ($EOL = $LF  ) 
+        ($args{eol} eq "CR")     ? ($EOL = $CR  )
+        : ($args{eol} eq "CRLF") ? ($EOL = $CRLF)
+        : ($args{eol} eq "LF"  ) ? ($EOL = $LF  )
         : croak "EOL reports: not legal EOL tag! Use only: CR; CRLF; LF.\n\n";
     }
     else {
         $EOL = $LF;  # Default is Unix line feed.
     }
     while(<IN>) {
-        s/$CRLF$|$CR|$FF$|$LF$/$EOL/g;
-        push(@lines, $_);
+        my $line = $_;
+        $line =~ s/$CRLF$|$CR|$FF$|$LF$/$EOL/g;
+        push (@lines, split (/($EOL)/, $line));
     }
     close(IN);
 
@@ -201,7 +202,7 @@ EOL - This module aids in the conversion of text file newline characters within 
 
 =head1 VERSION
 
-This document describes EOL version 0.0.1
+This document describes EOL version 0.0.2
 
 
 =head1 SYNOPSIS
@@ -249,7 +250,7 @@ This module provides routines for newline conversion that may be used in-line wi
  perldoc eol
 
 
-=head1 INTERFACE 
+=head1 INTERFACE
 
 The following routines are supported:
 
@@ -277,6 +278,7 @@ eol_same_file: A routine to convert line endings and write to the original file 
 =head2 eol_return_array
 
 eol_return_array: A routine to convert line endings and return an array reference of all of the converted line. This routine takes one incoming argument which corresponds to an input file name. By default, all newlines will be converted to standard Unix-style line feeds (LF or octal \012). A user may change the end-of-file tag manually by supplying the "eol" argument. Acceptable eol tags are: CR; CRLF; LF. An array reference to the converted file lines will be returned. Obviously, for larger files, this may be a considerable drain on memory.
+NOTE: End of line characters are returned as their own fields in the array--that is, they are not tacked on to the proceeding line.
 
  my $aref = eol_return_array(
                              in  => $in,
@@ -335,9 +337,9 @@ L<http://rt.cpan.org>.
 
 =head1 AUTHOR
 
-Todd Wylie  
+Todd Wylie
 
-C<< <perldev@monkeybytes.org> >>  
+C<< <perldev@monkeybytes.org> >>
 
 L<< http://www.monkeybytes.org >>
 

@@ -3,7 +3,7 @@
 # | APP    | eol
 # | AUTHOR | Todd Wylie
 # | EMAIL  | perldev@monkeybytes.org
-# | ID     | $Id: eol 1 2005-12-06 06:05:37Z twylie $
+# | ID     | $Id: eol 238 2006-10-31 19:08:15Z twylie $
 
 # ---------------------------------------------------------------------------
 # PURPOSE:
@@ -86,7 +86,7 @@ eol - Simple script to convert newline endings; uses the EOL.pm module.
 
 =head1 VERSION
 
-This document describes EOL version 0.0.1
+This document describes EOL version 0.0.2
 
 
 =head1 SYNOPSIS
